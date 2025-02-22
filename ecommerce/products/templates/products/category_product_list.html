@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center">Products List</h1>
+        {% for category in categories %}
+            <h2 class="my-4">{{ category.name }}</h2>
+            <div class="row">
+                {% for product in category.products.all %}
+                    <div class="col-md-4">
+                        <div class="card product-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+                                <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+                                <p class="card-text"><strong>Stock:</strong> {{ product.stock }}</p>
+                                <p><strong>Discount:</strong> {{ product.discount }}%</p>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <p class="text-center">No products available in this category.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% empty %}
+            <p class="text-center">No categories available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
